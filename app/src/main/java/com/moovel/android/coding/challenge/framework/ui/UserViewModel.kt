@@ -1,4 +1,8 @@
 package com.moovel.android.coding.challenge.framework.ui
 
-class UserViewModel {
+import android.arch.lifecycle.ViewModel
+import javax.inject.Inject
+
+class UserViewModel @Inject constructor() : ViewModel() {
+
 }
