@@ -1,24 +1,24 @@
 package com.moovel.android.coding.challenge.di.module
 
 import com.moovel.android.coding.challenge.di.viewmodel.ViewModelModule
+import com.moovel.android.coding.challenge.domain.pagination.GithubDataSourceFactory
+import com.moovel.android.coding.challenge.domain.repository.IRepository
+import com.moovel.android.coding.challenge.domain.usecases.login.LoginInteractor
+import com.moovel.android.coding.challenge.domain.usecases.login.LoginUseCases
+import com.moovel.android.coding.challenge.domain.usecases.user.UserInteractor
+import com.moovel.android.coding.challenge.domain.usecases.user.UserUseCases
 import dagger.Module
 import dagger.Provides
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Named
-
-const val SCHEDULER_MAIN_THREAD = "mainThread"
-const val SCHEDULER_IO = "io"
+import javax.inject.Singleton
 
 @Module(includes = [ViewModelModule::class])
 class AppModule {
 
     @Provides
-    @Named(SCHEDULER_MAIN_THREAD)
-    fun provideAndroidMainThreadScheduler(): Scheduler = AndroidSchedulers.mainThread()
+    @Singleton
+    fun provideUserUseCases(githubDataSourceFactory: GithubDataSourceFactory) : UserUseCases = UserInteractor(githubDataSourceFactory)
 
     @Provides
-    @Named(SCHEDULER_IO)
-    fun provideIoScheduler(): Scheduler = Schedulers.io()
+    @Singleton
+    fun provideLoginUseCases(repository: IRepository) : LoginUseCases = LoginInteractor(repository)
 }

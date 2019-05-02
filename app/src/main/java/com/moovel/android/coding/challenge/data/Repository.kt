@@ -1,7 +1,8 @@
 package com.moovel.android.coding.challenge.data
 
-import com.moovel.android.coding.challenge.data.local.UserDao
+import com.moovel.android.coding.challenge.di.module.TokenInterceptor
 import com.moovel.android.coding.challenge.domain.repository.IRepository
+import com.moovel.android.coding.challenge.network.AuthenticationApi
 import com.moovel.android.coding.challenge.network.GithubApi
 import com.moovel.android.coding.challenge.network.UserDetail
 import com.moovel.android.coding.challenge.network.UserResponse
