@@ -1,6 +1,5 @@
 package com.moovel.android.coding.challenge.di.module
 
-import android.arch.persistence.room.Room
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -15,11 +14,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+import okhttp3.logging.HttpLoggingInterceptor
 
 const val GITHUB_API_ENDPOINT = "https://api.github.com/"
 
 @Module
-class DataModule(private val moovelApp : MoovelApp){
+class DataModule{
 
     @Singleton
     @Provides
@@ -40,7 +40,7 @@ class DataModule(private val moovelApp : MoovelApp){
 
     @Singleton
     @Provides
-    internal fun provideMovieApi(gson: Gson, client: OkHttpClient): GithubApi {
+    internal fun provideGithubApi(gson: Gson, client: OkHttpClient): GithubApi {
 
         val retrofit = Retrofit.Builder()
                 .client(client)

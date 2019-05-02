@@ -12,7 +12,7 @@ class MoovelApp : Application(){
         DaggerAppComponent
                 .builder()
                 .appModule(AppModule())
-                .dataModule(DataModule(this))
+                .dataModule(DataModule())
                 .build()
     }
 

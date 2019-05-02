@@ -15,6 +15,9 @@ class Repository @Inject constructor(private val authenticationApi: Authenticati
 
     override fun setAccessToken(accessToken: String) { tokenInterceptor.token=accessToken }
 
-    override fun getUserDetails(name: String): Single<UserDetail> = githubApi.getUserDetails(name)
+    override fun fetchUsers(page: Int, pageSize : Int): Single<UserResponse> = githubApi.getUsers(page,pageSize)
+
+    override fun fetchUserDetails(name: String): Single<UserDetail> = githubApi.getUserDetails(name)
 
 }
+
