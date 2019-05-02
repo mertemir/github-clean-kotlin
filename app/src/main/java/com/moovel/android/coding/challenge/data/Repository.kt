@@ -8,9 +8,11 @@ import com.moovel.android.coding.challenge.network.UserResponse
 import io.reactivex.Single
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val githubApi: GithubApi, private val userDao: UserDao) : IRepository{
+class Repository @Inject constructor(private val authenticationApi: AuthenticationApi, private val githubApi: GithubApi, private val tokenInterceptor: TokenInterceptor) : IRepository{
 
-    override fun getUsers(page: Int): Single<UserResponse> = githubApi.getUsers(page)
+    override fun getAccessToken(clientId : String, secretId : String, code : String) = authenticationApi.getAccessToken(clientId, secretId, code)
+
+    override fun setAccessToken(accessToken: String) { tokenInterceptor.token=accessToken }
 
     override fun getUserDetails(name: String): Single<UserDetail> = githubApi.getUserDetails(name)
 

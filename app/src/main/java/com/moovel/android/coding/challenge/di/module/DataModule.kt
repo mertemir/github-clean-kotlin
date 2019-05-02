@@ -4,9 +4,9 @@ import android.arch.persistence.room.Room
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.moovel.android.coding.challenge.MoovelApp
-import com.moovel.android.coding.challenge.data.local.UserDao
-import com.moovel.android.coding.challenge.data.local.UserDatabase
+import com.moovel.android.coding.challenge.data.Repository
+import com.moovel.android.coding.challenge.domain.repository.IRepository
+import com.moovel.android.coding.challenge.network.AuthenticationApi
 import com.moovel.android.coding.challenge.network.GithubApi
 import dagger.Module
 import dagger.Provides
@@ -29,8 +29,13 @@ class DataModule(private val moovelApp : MoovelApp){
 
     @Singleton
     @Provides
-    internal fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder().build()
+    internal fun provideOkHttpClient(tokenInterceptor: TokenInterceptor): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.HEADERS
+        return OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .addInterceptor(tokenInterceptor)
+                .build()
     }
 
     @Singleton
@@ -49,11 +54,20 @@ class DataModule(private val moovelApp : MoovelApp){
 
     @Singleton
     @Provides
-    fun provideUserDatabase() : UserDatabase = Room.databaseBuilder(moovelApp, UserDatabase::class.java, "User-DB").allowMainThreadQueries().build()
+    internal fun provideAuthenticationApi(client: OkHttpClient): AuthenticationApi {
+
+        val retrofit= Retrofit.Builder()
+                .client(client)
+                .baseUrl("https://github.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        return retrofit.create(AuthenticationApi::class.java)
+    }
 
     @Singleton
     @Provides
-    fun provideUserDao(userDatabase: UserDatabase): UserDao = userDatabase.getUserDao()
+    fun provideRepository(authenticationApi: AuthenticationApi, githubApi: GithubApi, tokenInterceptor: TokenInterceptor) : IRepository = Repository(authenticationApi,githubApi, tokenInterceptor)
 
 }
 

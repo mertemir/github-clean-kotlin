@@ -10,14 +10,28 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".framework.ui.userdetail.UserDetailActivity" />
-        <activity android:name=".framework.ui.userlist.UserListActivity">
+        <activity
+            android:name=".framework.ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".framework.ui.login.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="callback"
+                    android:scheme="moovelapp" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".framework.ui.user.UserDetailActivity" />
+        <activity android:name=".framework.ui.user.UserListActivity" />
     </application>
 
 </manifest>
