@@ -26,13 +26,14 @@ class UserDetailActivity : BaseActivity() {
 
         val user = intent.extras.getParcelable("user") as User
 
-        Picasso.get().load(user.avatar_url).into(avatar)
+        Picasso.get().load(user.avatar_url).resize(300,300).into(avatar)
 
         name.text = user.name ?: "-"
         email.text = user.email ?: "-"
         company.text = user.company ?: "-"
         location.text = user.location ?: "-"
         bio.text = user.bio ?: "-"
+        followers.text = user.followers ?: "-"
 
         if (email.text != "-")
         {

@@ -19,7 +19,7 @@ class GithubDataSource @Inject constructor(private val repository: IRepository) 
                             response.results.forEachIndexed { index, user ->
                             repository.fetchUserDetails(user.username)
                                     .subscribe(
-                                            {users.add(User(user.id.toInt(),user.username,user.avatar_url,it.name,it.email,it.registration_date,it.company,it.location,it.bio))
+                                            {users.add(User(user.id.toInt(),user.username,user.avatar_url,it.name,it.email,it.registration_date,it.company,it.location,it.bio,it.followers))
                                                 if (index == response.results.size-1)
                                                     callback.onResult(users,null,2)},{updateState(PaginationState.ERROR)}) }
                         },{updateState(PaginationState.ERROR)}
@@ -36,7 +36,7 @@ class GithubDataSource @Inject constructor(private val repository: IRepository) 
                             response.results.forEachIndexed { index, user ->
                                 repository.fetchUserDetails(user.username)
                                         .subscribe(
-                                                {users.add(User(user.id.toInt(),user.username,user.avatar_url,it.name,it.email,it.registration_date,it.company,it.location,it.bio))
+                                                {users.add(User(user.id.toInt(),user.username,user.avatar_url,it.name,it.email,it.registration_date,it.company,it.location,it.bio,it.followers))
                                                     if (index == response.results.size-1)
                                                         callback.onResult(users,params.key + 1)},{updateState(PaginationState.ERROR)}) }
                         },{updateState(PaginationState.ERROR)}

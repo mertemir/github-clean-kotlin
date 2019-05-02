@@ -23,8 +23,8 @@ class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
     fun bind(user: User?){
         user?.let {
             itemView.username.text = user.username
-            itemView.date.text = user.registration_date
-            Picasso.get().load(user.avatar_url).into(itemView.avatar)
+            itemView.date.text = user.registration_date?.subSequence(0,10)
+            Picasso.get().load(user.avatar_url).resize(300,300).into(itemView.avatar)
 
             itemView.setOnClickListener {
                 val intent = Intent(it.context, UserDetailActivity::class.java)

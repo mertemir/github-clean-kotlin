@@ -28,5 +28,6 @@ data class UserDetail(
         @SerializedName("location") val location : String,
         @SerializedName("email") val email : String,
         @SerializedName("bio") val bio : String,
+        @SerializedName("followers") val followers : String,
         @SerializedName("created_at") val registration_date : String
 )
