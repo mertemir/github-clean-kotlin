@@ -1,35 +1,34 @@
-# android-coding-challenge
+Android app for showing the Kotlin users from the Github API on an infinite recyclerview. The detailed information about the users can be reached by clicking the items.
 
-Please use this project and this GitHub repository for your work. Commit just like you would in a real project. Also, feel free to use any other GitHub features you might want to.
+Patterns
 
-We have included some of the libraries that we use in our every day work here at moovel but you're in **no way** required to use them. Feel free to add and use anything you want to achieve the task. We've also added one Unit and one Integration Test so you don't need to worry about the setup.
+Clean Architecture
+MVVM
+Repository
+Observer
+Technology Stack
 
-## Task
+Kotlin
+Dagger 2
+RxAndroid/RxKotlin
+Retrofit 2
+Android Jetpack
+LiveData
+ViewModel
+Paging Library
+ConstraintLayout
+Picasso
+Choices made while developing:
 
-#### User List
-
-When opening the app, show a list of all Kotlin developers.
-
-* Use the GitHub API to load the users
-  * You can either use the [v3](https://developer.github.com/v3/search/#search-users) or [v4](https://developer.github.com/v4/object/user/) version of their API
-* Load maximum 10 users at once
-* Only show Kotlin users
-* Each displayed user item should contain at least:
-  * username
-  * avatar
-  * (bonus): registration date
-  * (bonus): order by username
-
-All of the network related code should be implemented in the existing network module.
-
-#### User Detail
-
-When clicking on a user item, show a detail screen.
-
-* A mandatory detail is the email address as well as the number of followers
-* When clicking on the email address, the default email app, installed on the device should open up
-* Feel free to add any other details you want
-
-## Contact
-
-If you have any further question please do not hesitate to ask [Julia Rosenblau](mailto:julia.rosenblau@moovel.com).
+For decoupling the business logic from the presentation and data layers, the project is implemented with the Clean Architecture.
+The domain layer has no dependency to the Android Framework, thus the reusability and testability is achieved.
+Communication between the layers are done by the interfaces. The implementations are provided and injected with Dagger.
+Repository class serving as the single source of truth and providing the persistence of data throughout the application.
+Remote and local data access are done here.
+Rx library is used for threading and reactive programming purposes.
+Responses from the api are handled as singles and implemented accordingly.
+LiveData and ViewModel are used for observing the data from the UI.
+Whenever new data is emitted, the change can be received by observing the LiveData.
+The data is persisted from the screen rotations.
+Paging library is used for the infinite scrolls.
+I have chosen to implement the data source with PageKeyedDataSource, because the Github API needs page numbers in order to keep sending the new users.

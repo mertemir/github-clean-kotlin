@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.moovel.android.coding.challenge"
+        applicationId "com.mertemir.android.coding.challenge"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
